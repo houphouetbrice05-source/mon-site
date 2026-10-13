@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mes dépenses</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Inter:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <div class="top">
+    <h1>Mes dépenses</h1>
+    <div class="nav"><button id="prev" aria-label="Mois précédent"></button><span id="mlabel"></span><button id="next" aria-label="Mois suivant">›</button></div>
+  </div>
+
+  <div class="total">
+    <div class="big" id="total">0 fcfa</div>
+    <div class="sub" id="count"></div>
+  </div>
+  <div class="bars" id="bars"></div>
+
+  <div class="card add">
+    <div class="two">
+      <label>Montant (FCFA)<input id="amount" type="number" inputmode="decimal" step="1" min="0" placeholder="5000 Fcfa"></label>
+      <label>Date<input id="date" type="date"></label>
+    </div>
+    <div class="two">
+      <label>Catégorie<select id="cat"></select></label>
+      <label>Note<input id="note" type="text" placeholder="Facultatif" maxlength="60"></label>
+    </div>
+    <button class="btn" id="save">Ajouter la dépense</button>
+  </div>
+
+  <h2>Détail du mois</h2>
+  <ul id="list"></ul>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

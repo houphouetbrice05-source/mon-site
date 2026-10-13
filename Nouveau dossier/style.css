@@ -1,0 +1,293 @@
+
+
+:root {
+  --bg: #EEF3F2;        /* fond de la page */
+  --card: #fff;         /* fond des cartes */
+  --ink: #12282A;       /* couleur du texte */
+  --mute: #5E7274;      /* texte discret (gris) */
+  --line: #D5E0DE;      /* traits et bordures */
+  --acc: #0E7C86;       /* couleur principale (bouton, barres) */
+  --acc-ink: #fff;      /* texte sur la couleur principale */
+  --bad: #B4233C;       /* rouge (bouton supprimer) */
+
+  box-sizing: border-box;
+  /* Évite que le contenu passe sous l'encoche du téléphone */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Mode sombre : si le téléphone est en mode sombre,
+   on remplace les couleurs par des couleurs foncées */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1D1F;
+    --card: #172A2D;
+    --ink: #E6F1EF;
+    --mute: #8FA7A9;
+    --line: #27403F;
+    --acc: #3FC1CC;
+    --acc-ink: #06201F;
+    --bad: #FF7A8C;
+  }
+}
+
+/* Mode sombre forcé (si la page a data-theme="dark") */
+:root[data-theme="dark"] {
+  --bg: #0F1D1F;
+  --card: #172A2D;
+  --ink: #E6F1EF;
+  --mute: #8FA7A9;
+  --line: #27403F;
+  --acc: #3FC1CC;
+  --acc-ink: #06201F;
+  --bad: #FF7A8C;
+}
+
+
+/* 2. RÉGLAGES DE BASE ------------------------ */
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* La largeur d'un élément inclut son padding et sa bordure */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.45 Inter, system-ui, sans-serif;
+}
+
+/* Le contenu est centré et limité à 520px de large */
+main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+/* Titres et gros montant : même police */
+h1,
+h2,
+.big {
+  font-family: "Bricolage Grotesque", Inter, system-ui, sans-serif;
+  margin: 0;
+}
+
+
+/* 3. LE HAUT : TITRE ET CHOIX DU MOIS -------- */
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.top h1 {
+  font-size: 20px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Les deux boutons ronds ‹ et › */
+.nav button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Le nom du mois entre les deux boutons */
+.nav span {
+  min-width: 120px;
+  text-align: center;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+
+/* 4. LE TOTAL -------------------------------- */
+
+.total {
+  margin: 22px 0 6px;
+}
+
+.big {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  color: var(--mute);
+  margin-top: 6px;
+}
+
+
+/* 5. LES BARRES PAR CATÉGORIE ---------------- */
+
+.bars {
+  margin: 20px 0;
+  display: grid;
+  gap: 10px;
+}
+
+/* Ligne avec le nom de la catégorie et son montant */
+.bar .row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+/* Le fond gris de la barre */
+.bar .track {
+  height: 8px;
+  background: var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* La partie colorée (sa largeur est réglée par le JavaScript) */
+.bar .fill {
+  height: 100%;
+  background: var(--acc);
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+
+/* 6. LE FORMULAIRE D'AJOUT ------------------- */
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.add {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+/* Deux champs côte à côte */
+.add .two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+label {
+  font-size: 13px;
+  color: var(--mute);
+  display: grid;
+  gap: 4px;
+}
+
+input,
+select {
+  font: inherit;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+/* Contour visible quand on navigue au clavier */
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--acc);
+  outline-offset: 2px;
+}
+
+/* Le bouton "Ajouter la dépense" */
+.btn {
+  background: var(--acc);
+  color: var(--acc-ink);
+  border: 0;
+  border-radius: 10px;
+  padding: 12px;
+  font: 500 16px Inter, sans-serif;
+  cursor: pointer;
+}
+
+
+/* 7. LA LISTE DES DÉPENSES ------------------- */
+
+h2 {
+  font-size: 17px;
+  margin: 24px 0 8px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+/* La partie gauche : titre + catégorie et date */
+li .m {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Le titre (tronqué avec "..." s'il est trop long) */
+li .m b {
+  display: block;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+li .m small {
+  color: var(--mute);
+}
+
+/* Le montant à droite */
+li .a {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Le bouton × pour supprimer */
+li button {
+  border: 0;
+  background: none;
+  color: var(--bad);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+/* Message quand il n'y a aucune dépense */
+.empty {
+  color: var(--mute);
+  padding: 16px 0;
+}
